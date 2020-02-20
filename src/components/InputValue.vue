@@ -30,7 +30,7 @@ export default {
         setValue(){
             // this.$emit("value",this.income);
             this.value(this.value_input);
-            // this.$store.dispatch('update_', this.get_obj);
+            this.$store.dispatch('update_',this.get_capital);
             this.cancel()
         },
         cancel(){
@@ -42,9 +42,9 @@ export default {
     }
     },
     computed:{
-        get_obj(){
-        return this.$store.getters.get_obj
-    }
+   get_capital(){
+    return this.$store.getters.get_capital
+    },
     }
 }
 </script>
