@@ -1,13 +1,13 @@
 <template>
     <div>
         <ul>
-            <li ref="name_category"  @click="exit=true;getname(item.name)" class="flex w-3/6 mx-auto mb-8" v-for="item in lists" :key="item.id"><span class="flex"><img class="w-1/12" :src=item.img alt=""><span class="flex items-center">{{item.name}}</span></span><span class="flex items-center">{{item.cost}}$</span></li>
+            <li ref="name_category"  @click="call_formhistory=true;getname(item.name)" class="flex w-3/6 mx-auto mb-8" v-for="item in lists" :key="item.id"><span class="flex"><img class="w-1/12" :src=item.img alt=""><span class="flex items-center">{{item.name}}</span></span><span class="flex items-center">{{item.cost}}$</span></li>
         </ul>
         <div>
-            <button @click="exit=true">-</button>
+            <button @click="call_waste=true">-</button>
         </div>
-       <waste v-if="exit" @cancel="exit=false"></waste>
-        <form-history v-if="exit" :name="name" @cancel="exit=false"></form-history>
+       <waste v-if="call_waste" @cancel="call_waste=false"></waste>
+        <form-history v-if="call_formhistory" :name="name" @cancel="call_formhistory=false"></form-history>
   
     </div> 
 </template>
@@ -18,7 +18,8 @@ import Waste from './Waste'
 export default {
 data(){
     return{
-    exit:false,
+    call_waste:false,
+    call_formhistory:false,
     name:""
     }
 },
