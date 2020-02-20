@@ -1,34 +1,36 @@
 <template>
     <div>
         <ul>
-            <li class="flex w-3/6 mx-auto mb-8" v-for="item in lists" :key="item.id"><span class="flex"><img class="w-1/12" :src=item.img alt=""><span class="flex items-center">{{item.name}}</span></span><span class="flex items-center">{{item.cost}}$</span></li>
+            <li ref="name_category"  @click="exit=true;getname(item.name)" class="flex w-3/6 mx-auto mb-8" v-for="item in lists" :key="item.id"><span class="flex"><img class="w-1/12" :src=item.img alt=""><span class="flex items-center">{{item.name}}</span></span><span class="flex items-center">{{item.cost}}$</span></li>
         </ul>
         <div>
             <button @click="exit=true">-</button>
         </div>
        <waste v-if="exit" @cancel="exit=false"></waste>
-                <!-- {{get_db}} 
-                {{get_array}} -->
-                {{get_array}}
-                {{get_o}}
-
-
-
+        <form-history v-if="exit" :name="name" @cancel="exit=false"></form-history>
+  
     </div> 
 </template>
 
 <script>
+import FormHistory from './FormHistory'
 import Waste from './Waste'
 export default {
 data(){
     return{
-    exit:false
+    exit:false,
+    name:""
     }
 },
-components:{Waste},
+components:{Waste,FormHistory},
+methods:{
+    getname(name){
+       this.name=name;
+    }
+},
 computed :{
     lists(){
-        return this.$store.state.costs_list;
+        return this.$store.state.list_category;
     }
     ,
     get_db(){
@@ -45,12 +47,26 @@ computed :{
     },
     get_o(){
        return this.$store.getters.get_cost_list_for_day;
-     }
+     },
+    costs_for_category(){
+        console.log(this.$store.state.cost_list);
+        return this.$store.state.cost_list;
+     },
+     history_cost_for_categorey(){
+         console.log(this.$store.state.history_cost_for_category)
+         return this.$store.state.history_cost_for_category;
+     }       
+     , get_date_now(){
+      return this.$store.getters.get_date_now;
+    },
+    get_time_now(){
+      return this.$store.getters.get_time_now;
+    },
     // get_list_elements()
 
 },
 created(){
-
+    this.$store.dispatch('select_',this.get_date_now);
 }
 }
 </script>
