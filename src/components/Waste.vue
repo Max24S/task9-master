@@ -48,9 +48,8 @@ export default {
     methods:{
         setValue(){
             this.value(this.check.value_input);
-            this.$store.dispatch('specific_purchase',this.check.selected);
-            this.$store.dispatch('insert_data',{date:this.get_date_now,description:this.value_desc,name_collection:this.check.selected,value:(this.get_value*-1),time:this.get_time_now});
-            this.$store.dispatch('update_', this.get_obj);
+            this.$store.dispatch('insert_data',{date:this.get_date_now,description:this.value_desc,name_collection:this.check.selected,value:(this.get_capital.last_transaction*-1),time:this.get_time_now});
+            this.$store.dispatch('update_', this.get_capital);
             this.$store.dispatch('select_',this.get_date_now);
             this.cancel()
         },
@@ -64,13 +63,10 @@ export default {
     },
     computed:{
     lists(){
-        return this.$store.state.costs_list;
+      return this.$store.state.list_category;
     },
-    get_value(){
-      return this.$store.getters.get_lastTransaction;
-    },
-    get_obj(){
-    return this.$store.getters.get_obj
+    get_capital(){
+    return this.$store.getters.get_capital
     },
     get_date_now(){
       return this.$store.getters.get_date_now;
